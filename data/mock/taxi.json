@@ -1,0 +1,16 @@
+[
+  {
+    "provider": "mock_taxi",
+    "transport_type": "taxi",
+    "origin": "太原",
+    "destination": "北京",
+    "departure_time": "2026-09-20T08:00:00",
+    "arrival_time": "2026-09-20T14:30:00",
+    "price": 680,
+    "duration_minutes": 390,
+    "transfers": 0,
+    "ticket_count": null,
+    "seat_type": "舒适型",
+    "is_available": true
+  }
+]

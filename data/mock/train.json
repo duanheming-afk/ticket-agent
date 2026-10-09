@@ -1,0 +1,30 @@
+[
+  {
+    "provider": "mock_train",
+    "transport_type": "train",
+    "origin": "太原",
+    "destination": "北京",
+    "departure_time": "2026-09-20T08:30:00",
+    "arrival_time": "2026-09-20T11:45:00",
+    "price": 267,
+    "duration_minutes": 195,
+    "transfers": 0,
+    "ticket_count": 12,
+    "seat_type": "二等座",
+    "is_available": true
+  },
+  {
+    "provider": "mock_train",
+    "transport_type": "train",
+    "origin": "太原",
+    "destination": "北京",
+    "departure_time": "2026-09-20T13:10:00",
+    "arrival_time": "2026-09-20T16:50:00",
+    "price": 198,
+    "duration_minutes": 220,
+    "transfers": 0,
+    "ticket_count": 3,
+    "seat_type": "二等座",
+    "is_available": true
+  }
+]
