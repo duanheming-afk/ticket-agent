@@ -4,6 +4,38 @@
 
 默认使用本地 Mock 数据，另有通用 HTTP JSON Provider 和 Amadeus 航班适配器。目前不支持下单、支付或出票，不是生产订票平台。
 
+## 招聘者快速浏览
+
+- **解决的问题**：将自然语言出行需求转换为受校验的结构化条件，按交通类型调用查询工具，并用确定性规则筛选和排序候选方案。
+- **工程实现**：Python + FastAPI + Pydantic + Ollama + asyncio；支持多 Provider 并发、超时/重试/熔断、会话补槽、工具白名单和服务状态观测。
+- **可扩展性**：Mock、通用 HTTP JSON 与 Amadeus 航班适配器实现统一查询接口，并统一映射为 `TransportOption`，方便替换数据源。
+- **可验证性与边界**：2026-10-09 本地运行 **11 项单元测试**通过。默认使用固定 Mock 演示数据；真实 API、模型解析准确率、订单与支付均不属于已完成能力。
+
+### 架构概览
+
+```mermaid
+flowchart LR
+    U[自然语言出行需求] --> P[Ollama 解析]
+    P --> V[Pydantic 校验与会话字段合并]
+    V -->|信息缺失| C[追问并暂存会话]
+    V -->|信息完整| R[白名单工具路由 / 规则降级]
+    R --> T[火车 / 航班 / 网约车查询工具]
+    T --> M[Mock / HTTP JSON / Amadeus Provider]
+    M --> Q[超时、重试与熔断]
+    Q --> F[硬规则过滤与排序]
+    F --> O[FastAPI JSON / 中文网页]
+    O --> S[调用记录与 Provider 状态]
+```
+
+### 运行入口
+
+```powershell
+# 安装依赖并从 .env.example 创建 .env 后启动服务（完整步骤见“快速开始”）
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8010
+```
+
+启动后访问 `http://127.0.0.1:8010/` 使用中文查询页面，或访问 `http://127.0.0.1:8010/api-docs` 查看 Swagger API 文档。
+
 ## 已实现的功能
 
 | 能力 | 实现方式与边界 |
